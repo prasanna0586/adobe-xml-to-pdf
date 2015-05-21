@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -56,7 +57,8 @@ public class XmlToPdf {
 				transformer.transform(streamSource, streamResult);
 				writer = PdfWriter.getInstance(document, pdfOutputStream);
 				document.open();
-				XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream(pdfPath + "/temp.html"));
+				XMLWorkerHelper.getInstance().parseXHtml(writer, document, 
+						new FileInputStream(pdfPath + "/temp.html"), Charset.forName("UTF-8"));
 				System.out.println("Completed. PDF is available @ " + pdfFullPath);
 			} catch (TransformerConfigurationException e) {
 				e.getMessage();
@@ -69,13 +71,14 @@ public class XmlToPdf {
 			} catch (IOException e) {
 				e.getMessage();
 			} finally {
-				if(document != null)
+				if(document != null && document.isOpen())
 					document.close();
 				if (writer != null)
 					writer.close();
 			}
 		} else {
-			throw new IllegalArgumentException("Input XML and Output PDF Path with filename is not provided as an argument");
+			throw new IllegalArgumentException("Input XML and Output PDF Path with "
+					+ "filename is not provided as an argument");
 		}
 	}
 }
