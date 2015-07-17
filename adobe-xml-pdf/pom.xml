@@ -6,6 +6,7 @@
 	<version>1.0.0</version>
 	<properties>
 		<java.version>1.7</java.version>
+		<project.directory>D:\dev\adobe-xml-to-pdf\adobe-xml-to-pdf\adobe-xml-pdf</project.directory>
 	</properties>
 
 	<dependencies>
@@ -43,11 +44,11 @@
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.5.4</version>
 				<configuration>
-					<!-- get all project dependencies -->
+					get all project dependencies
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
-					<!-- MainClass in mainfest make a executable jar -->
+					MainClass in mainfest make a executable jar
 					<archive>
 						<manifest>
 							<mainClass>com.xml.topdf.XmlToPdf</mainClass>
@@ -58,7 +59,7 @@
 				<executions>
 					<execution>
 						<id>make-assembly</id>
-						<!-- bind to the packaging phase -->
+						bind to the packaging phase
 						<phase>package</phase>
 						<goals>
 							<goal>single</goal>
@@ -66,6 +67,36 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- Copy all dependencies to the specified directory -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.directory}/lib-test-prasanna</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Add dependent jar entries to manifest.mf (classpath) -->
+			<!-- <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>../lib-test-prasanna/</classpathPrefix>
+							<mainClass>com.xml.topdf.XmlToPdf</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin> -->
 
 		</plugins>
 	</build>
