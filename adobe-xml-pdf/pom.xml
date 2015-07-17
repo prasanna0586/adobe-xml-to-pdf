@@ -44,11 +44,11 @@
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.5.4</version>
 				<configuration>
-					get all project dependencies
+					<!-- get all project dependencies -->
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
-					MainClass in mainfest make a executable jar
+					<!-- MainClass in mainfest make a executable jar -->
 					<archive>
 						<manifest>
 							<mainClass>com.xml.topdf.XmlToPdf</mainClass>
@@ -59,7 +59,7 @@
 				<executions>
 					<execution>
 						<id>make-assembly</id>
-						bind to the packaging phase
+						<!-- bind to the packaging phase -->
 						<phase>package</phase>
 						<goals>
 							<goal>single</goal>
